@@ -1,0 +1,50 @@
+{
+  "author": {
+    "email": "prabodhtiwari@outlook.com",
+    "name": "Prabodh Tiwari"
+  },
+  "bugs": {
+    "url": "https://github.com/prabodhtiwari/js-jwt/issues"
+  },
+  "contributors": [
+  ],
+  "dependencies": {
+    "crypto-js": "^3.1.8"
+  },
+  "description": "a Javascript library for encoding into jwt",
+  
+  "directories": {
+    "test": "test"
+  },
+
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "files": [
+    "index.js"
+  ],
+  "homepage": "https://github.com/prabodhtiwari/js-jwt",
+  "keywords": [
+    "javascript",
+    "JWT",
+    "jsonwebtokens",
+    "encoding",
+    "decoing",
+    "jwt",
+    "json web tokens"
+  ],
+  "license": "MIT",
+  "main": "index",
+  "maintainers": [
+    
+  ],
+  "name": "js-jwt",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:prabodhtiwari/js-jwt.git",
+    "web": "https://github.com/prabodhtiwari/js-jwt"
+  },
+  "version": "0.1.0"
+}
