@@ -6,13 +6,11 @@
   "bugs": {
     "url": "https://github.com/prabodhtiwari/js-jwt/issues"
   },
-  "contributors": [
-  ],
+  "contributors": [],
   "dependencies": {
     "crypto-js": "^3.1.8"
   },
   "description": "a Javascript library for encoding into jwt",
-  
   "directories": {
     "test": "test"
   },
@@ -28,9 +26,7 @@
   ],
   "license": "MIT",
   "main": "index",
-  "maintainers": [
-    
-  ],
+  "maintainers": [],
   "name": "js-jwt",
   "optionalDependencies": {},
   "readme": "ERROR: No README data found!",
@@ -39,5 +35,5 @@
     "url": "git+ssh://git@github.com:prabodhtiwari/js-jwt.git",
     "web": "https://github.com/prabodhtiwari/js-jwt"
   },
-  "version": "0.1.2"
+  "version": "0.1.3"
 }
