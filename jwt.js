@@ -23,8 +23,13 @@ let secret = undefined
 
 exports.init = (a,s) => {
 
-    header.alg = a
-    secret = s
+    if(checkAlg){
+      header.alg = a
+      secret = s
+    }
+    else {
+      console.log('invalid algorithm')
+    }
 
 }
 
@@ -34,14 +39,11 @@ exports.encode = (data,s) => {
  
     if(!!s){
       secret = s
-    }
-
-    console.log(secret, s)
-    if(!secret){
+    } else if(!secret){
       console.log('secret key can not be null')
       return
     }
-    console.log(header)
+
     const stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header))
     const encodedHeader = base64url(stringifiedHeader)
 
@@ -50,7 +52,7 @@ exports.encode = (data,s) => {
 
     const token = `${encodedHeader}.${encodedData}`
 
-    const signature = CryptoJS.HmacSHA512(token, secret)
+    const signature = generateSignature(token, header.alg, secret)
     const encodedSignature = base64url(signature)
 
     return `${token}.${encodedSignature}`
@@ -61,4 +63,26 @@ exports.encode = (data,s) => {
 
   }
 
+}
+
+const checkAlg = (alg) => {
+  var algs = ["HS256","HS512"]
+  algs.forEach(a => {
+    if(a === alg){
+      return true
+    }
+  })
+  return false
+}
+
+const generateSignature = (token, alg, secret) => {
+  switch(alg){
+    case "HS256":
+      return CryptoJS.HmacSHA256(token, secret)
+    case "HS512":
+      return CryptoJS.HmacSHA512(token, secret)
+    default:
+      console.log("Invalid algo")
+      return false
+  }
 }
