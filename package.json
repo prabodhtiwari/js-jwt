@@ -35,5 +35,5 @@
     "url": "git+ssh://git@github.com:prabodhtiwari/js-jwt.git",
     "web": "https://github.com/prabodhtiwari/js-jwt"
   },
-  "version": "0.1.5"
+  "version": "0.1.6"
 }
