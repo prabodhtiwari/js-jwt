@@ -3,9 +3,9 @@
 
 const CryptoJS = require("crypto-js")
 
-const base64url = (source) => {
+const base64url = function (source) {
 
-  let encodedSource = CryptoJS.enc.Base64.stringify(source)
+  var encodedSource = CryptoJS.enc.Base64.stringify(source)
   encodedSource = encodedSource.replace(/=+$/, '')
   encodedSource = encodedSource.replace(/\+/g, '-')
   encodedSource = encodedSource.replace(/\//g, '_')
@@ -14,14 +14,14 @@ const base64url = (source) => {
 
 } 
 
-let header = {
+var header = {
   "alg": "HS256",
   "typ": "JWT"
 }
 
-let secret = undefined
+var secret = undefined
 
-exports.init = (a,s) => {
+exports.init = function (a,s) {
 
     if(checkAlg){
       header.alg = a
@@ -33,7 +33,7 @@ exports.init = (a,s) => {
 
 }
 
-exports.encode = (data,s) => {
+exports.encode = function (data,s) {
 
   try{
  
@@ -65,7 +65,7 @@ exports.encode = (data,s) => {
 
 }
 
-const checkAlg = (alg) => {
+const checkAlg = function (alg) {
   var algs = ["HS256","HS512"]
   algs.forEach(a => {
     if(a === alg){
@@ -75,7 +75,7 @@ const checkAlg = (alg) => {
   return false
 }
 
-const generateSignature = (token, alg, secret) => {
+const generateSignature = function (token, alg, secret) {
   switch(alg){
     case "HS256":
       return CryptoJS.HmacSHA256(token, secret)
