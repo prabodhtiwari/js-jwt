@@ -3,6 +3,9 @@
     "email": "prabodhtiwari@outlook.com",
     "name": "Prabodh Tiwari"
   },
+  "scripts": {
+    "start": "webpack"
+  },
   "bugs": {
     "url": "https://github.com/prabodhtiwari/js-jwt/issues"
   },
@@ -25,7 +28,7 @@
     "json web tokens"
   ],
   "license": "MIT",
-  "main": "index",
+  "main": "bundle.js",
   "maintainers": [],
   "name": "js-jwt",
   "optionalDependencies": {},
@@ -34,5 +37,11 @@
     "url": "git+ssh://git@github.com:prabodhtiwari/js-jwt.git",
     "web": "https://github.com/prabodhtiwari/js-jwt"
   },
-  "version": "0.2.0"
+  "version": "0.2.0",
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-env": "^1.1.4",
+    "webpack": "^1.14.0"
+  }
 }
