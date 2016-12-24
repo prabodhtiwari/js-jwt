@@ -28,7 +28,7 @@
     "json web tokens"
   ],
   "license": "MIT",
-  "main": "bundle.js",
+  "main": "index",
   "maintainers": [],
   "name": "js-jwt",
   "optionalDependencies": {},

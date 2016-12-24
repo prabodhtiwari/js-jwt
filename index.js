@@ -4,4 +4,4 @@
  * MIT Licensed
  */
  
-module.exports = require('./jwt');
+module.exports = require('./bundle');
