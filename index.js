@@ -4,4 +4,4 @@
  * MIT Licensed
  */
  
-module.exports = require('./bundle');
+module.exports = require('./bundle.js');
