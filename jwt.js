@@ -50,12 +50,12 @@ exports.encode = function (data,s) {
     const stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(data))
     const encodedData = base64url(stringifiedData)
 
-    const token = `${encodedHeader}.${encodedData}`
+    const token = encodedHeader + "." + encodedData
 
     const signature = generateSignature(token, header.alg, secret)
     const encodedSignature = base64url(signature)
 
-    return `${token}.${encodedSignature}`
+    return token + "." + encodedSignature
 
   } catch(err) {
 
