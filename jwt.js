@@ -67,7 +67,7 @@ exports.encode = function (data,s) {
 
 const checkAlg = function (alg) {
   var algs = ["HS256","HS512"]
-  algs.forEach(a => {
+  algs.forEach(function(a) {
     if(a === alg){
       return true
     }
