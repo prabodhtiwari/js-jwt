@@ -1,13 +1,11 @@
 
 'use strict';
 
-var AES, SHA256, SHA512, ENC;
-
 var BASE64 = require("crypto-js/enc-base64");
 var UTF8 = require("crypto-js/enc-utf8");
 var SHA512 = require("crypto-js/hmac-sha512");
 
-var base64url = function base64url(source) {
+var base64url = function base64url() {
 
   var encodedSource = BASE64.stringify(source);
   encodedSource = encodedSource.replace(/=+$/, '');
@@ -18,7 +16,7 @@ var base64url = function base64url(source) {
 };
 
 var header = {
-  "alg": "HS256",
+  "alg": "HS512",
   "typ": "JWT"
 };
 

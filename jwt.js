@@ -1,15 +1,13 @@
 
 'use strict'
 
-var AES, SHA256, SHA512, ENC
+const BASE64 = require("crypto-js/enc-base64")
+const UTF8 = require("crypto-js/enc-utf8")
+const SHA512 = require("crypto-js/hmac-sha512")
 
-var BASE64 = require("crypto-js/enc-base64")
-var UTF8 = require("crypto-js/enc-utf8")
-var SHA512 = require("crypto-js/hmac-sha512")
+const base64url = () => {
 
-const base64url = function (source) {
-
-  var encodedSource = BASE64.stringify(source)
+  let encodedSource = BASE64.stringify(source)
   encodedSource = encodedSource.replace(/=+$/, '')
   encodedSource = encodedSource.replace(/\+/g, '-')
   encodedSource = encodedSource.replace(/\//g, '_')
@@ -18,14 +16,14 @@ const base64url = function (source) {
 
 } 
 
-var header = {
-  "alg": "HS256",
+const header = {
+  "alg": "HS512",
   "typ": "JWT"
 }
 
-var secret = undefined
+let secret = undefined
 
-exports.init = function (a,s) {
+exports.init = (a,s) => {
 
     if(checkAlg){
       header.alg = a
@@ -37,7 +35,7 @@ exports.init = function (a,s) {
 
 }
 
-exports.encode = function (data,s) {
+exports.encode = (data,s) => {
 
   try{
  
@@ -69,8 +67,8 @@ exports.encode = function (data,s) {
 
 }
 
-const checkAlg = function (alg) {
-  var algs = ["HS512"]
+const checkAlg = (alg) => {
+  const algs = ["HS512"]
   algs.forEach(function(a) {
     if(a === alg){
       return true
@@ -79,7 +77,7 @@ const checkAlg = function (alg) {
   return false
 }
 
-const generateSignature = function (token, alg, secret) {
+const generateSignature = (token, alg, secret) => {
   switch(alg){
     case "HS512":
       return SHA512(token, secret)
