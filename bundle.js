@@ -5,7 +5,7 @@ var BASE64 = require("crypto-js/enc-base64");
 var UTF8 = require("crypto-js/enc-utf8");
 var SHA512 = require("crypto-js/hmac-sha512");
 
-var base64url = function base64url() {
+var base64url = function base64url(source) {
 
   var encodedSource = BASE64.stringify(source);
   encodedSource = encodedSource.replace(/=+$/, '');
