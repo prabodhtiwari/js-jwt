@@ -5,7 +5,6 @@ var AES, SHA256, SHA512, ENC;
 
 var BASE64 = require("crypto-js/enc-base64");
 var UTF8 = require("crypto-js/enc-utf8");
-var SHA256 = require("crypto-js/hmac-sha256");
 var SHA512 = require("crypto-js/hmac-sha512");
 
 var base64url = function base64url(source) {
@@ -65,7 +64,7 @@ exports.encode = function (data, s) {
 };
 
 var checkAlg = function checkAlg(alg) {
-  var algs = ["HS256", "HS512"];
+  var algs = ["HS512"];
   algs.forEach(function (a) {
     if (a === alg) {
       return true;
@@ -76,8 +75,6 @@ var checkAlg = function checkAlg(alg) {
 
 var generateSignature = function generateSignature(token, alg, secret) {
   switch (alg) {
-    case "HS256":
-      return SHA256(token, secret);
     case "HS512":
       return SHA512(token, secret);
     default:
