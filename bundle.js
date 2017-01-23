@@ -1,11 +1,16 @@
 
 'use strict';
 
-var CryptoJS = require("crypto-js");
+var AES, SHA256, SHA512, ENC;
+
+var BASE64 = require("crypto-js/enc-base64");
+var UTF8 = require("crypto-js/enc-utf8");
+var SHA256 = require("crypto-js/hmac-sha256");
+var SHA512 = require("crypto-js/hmac-sha512");
 
 var base64url = function base64url(source) {
 
-  var encodedSource = CryptoJS.enc.Base64.stringify(source);
+  var encodedSource = BASE64.stringify(source);
   encodedSource = encodedSource.replace(/=+$/, '');
   encodedSource = encodedSource.replace(/\+/g, '-');
   encodedSource = encodedSource.replace(/\//g, '_');
@@ -41,10 +46,10 @@ exports.encode = function (data, s) {
       return;
     }
 
-    var stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+    var stringifiedHeader = UTF8.parse(JSON.stringify(header));
     var encodedHeader = base64url(stringifiedHeader);
 
-    var stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(data));
+    var stringifiedData = UTF8.parse(JSON.stringify(data));
     var encodedData = base64url(stringifiedData);
 
     var token = encodedHeader + "." + encodedData;
@@ -72,9 +77,9 @@ var checkAlg = function checkAlg(alg) {
 var generateSignature = function generateSignature(token, alg, secret) {
   switch (alg) {
     case "HS256":
-      return CryptoJS.HmacSHA256(token, secret);
+      return SHA256(token, secret);
     case "HS512":
-      return CryptoJS.HmacSHA512(token, secret);
+      return SHA512(token, secret);
     default:
       console.log("Invalid algo");
       return false;

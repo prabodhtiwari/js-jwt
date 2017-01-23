@@ -1,11 +1,16 @@
 
 'use strict'
 
-const CryptoJS = require("crypto-js")
+var AES, SHA256, SHA512, ENC
+
+var BASE64 = require("crypto-js/enc-base64")
+var UTF8 = require("crypto-js/enc-utf8")
+var SHA256 = require("crypto-js/hmac-sha256")
+var SHA512 = require("crypto-js/hmac-sha512")
 
 const base64url = function (source) {
 
-  var encodedSource = CryptoJS.enc.Base64.stringify(source)
+  var encodedSource = BASE64.stringify(source)
   encodedSource = encodedSource.replace(/=+$/, '')
   encodedSource = encodedSource.replace(/\+/g, '-')
   encodedSource = encodedSource.replace(/\//g, '_')
@@ -44,10 +49,10 @@ exports.encode = function (data,s) {
       return
     }
 
-    const stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header))
+    const stringifiedHeader = UTF8.parse(JSON.stringify(header))
     const encodedHeader = base64url(stringifiedHeader)
 
-    const stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(data))
+    const stringifiedData = UTF8.parse(JSON.stringify(data))
     const encodedData = base64url(stringifiedData)
 
     const token = encodedHeader + "." + encodedData
@@ -78,9 +83,9 @@ const checkAlg = function (alg) {
 const generateSignature = function (token, alg, secret) {
   switch(alg){
     case "HS256":
-      return CryptoJS.HmacSHA256(token, secret)
+      return SHA256(token, secret)
     case "HS512":
-      return CryptoJS.HmacSHA512(token, secret)
+      return SHA512(token, secret)
     default:
       console.log("Invalid algo")
       return false
