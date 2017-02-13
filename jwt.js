@@ -14,7 +14,7 @@ const base64url = (source) => {
 
   return encodedSource;
 
-} 
+}
 
 const header = {
   "alg": "HS512",
@@ -23,25 +23,25 @@ const header = {
 
 let secret = undefined
 
-exports.init = (a,s) => {
+exports.init = (a, s) => {
 
-    if(checkAlg){
-      header.alg = a
-      secret = s
-    }
-    else {
-      console.log('invalid algorithm')
-    }
+  if (checkAlg) {
+    header.alg = a
+    secret = s
+  }
+  else {
+    console.log('invalid algorithm')
+  }
 
 }
 
-exports.encode = (data,s) => {
+exports.encode = (data, s) => {
 
-  try{
- 
-    if(!!s){
+  try {
+
+    if (!!s) {
       secret = s
-    } else if(!secret){
+    } else if (!secret) {
       console.log('secret key can not be null')
       return
     }
@@ -59,7 +59,38 @@ exports.encode = (data,s) => {
 
     return token + "." + encodedSignature
 
-  } catch(err) {
+  } catch (err) {
+
+    console.log(err)
+
+  }
+
+}
+
+exports.decode = (data, s) => {
+
+  try {
+
+    if (!!s) {
+      secret = s
+    } else if (!secret) {
+      console.log('secret key can not be null')
+      return
+    }
+
+    var d = data.split('.')
+    const token = d[0] + "." + d[1]
+
+    const signature = generateSignature(token, header.alg, secret)
+    const encodedSignature = base64url(signature)
+
+    if (encodedSignature === d[2]) {
+      return parseToken(d[1])
+    } else {
+      return "invalid jwt"
+    }
+
+  } catch (err) {
 
     console.log(err)
 
@@ -69,8 +100,8 @@ exports.encode = (data,s) => {
 
 const checkAlg = (alg) => {
   const algs = ["HS512"]
-  algs.forEach(function(a) {
-    if(a === alg){
+  algs.forEach(function (a) {
+    if (a === alg) {
       return true
     }
   })
@@ -78,7 +109,7 @@ const checkAlg = (alg) => {
 }
 
 const generateSignature = (token, alg, secret) => {
-  switch(alg){
+  switch (alg) {
     case "HS512":
       return SHA512(token, secret)
     default:
@@ -86,3 +117,8 @@ const generateSignature = (token, alg, secret) => {
       return false
   }
 }
+
+const parseToken = (token) => {
+  var base64 = token.replace('-', '+').replace('_', '/');
+  return JSON.parse(new Buffer(token, 'base64').toString('binary'));
+};

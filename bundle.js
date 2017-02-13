@@ -61,6 +61,34 @@ exports.encode = function (data, s) {
   }
 };
 
+exports.decode = function (data, s) {
+
+  try {
+
+    if (!!s) {
+      secret = s;
+    } else if (!secret) {
+      console.log('secret key can not be null');
+      return;
+    }
+
+    var d = data.split('.');
+    var token = d[0] + "." + d[1];
+
+    var signature = generateSignature(token, header.alg, secret);
+    var encodedSignature = base64url(signature);
+
+    if (encodedSignature === d[2]) {
+      return parseToken(d[1]);
+    } else {
+      return "invalid jwt";
+    }
+  } catch (err) {
+
+    console.log(err);
+  }
+};
+
 var checkAlg = function checkAlg(alg) {
   var algs = ["HS512"];
   algs.forEach(function (a) {
@@ -79,5 +107,10 @@ var generateSignature = function generateSignature(token, alg, secret) {
       console.log("Invalid algo");
       return false;
   }
+};
+
+var parseToken = function parseToken(token) {
+  var base64 = token.replace('-', '+').replace('_', '/');
+  return JSON.parse(new Buffer(token, 'base64').toString('binary'));
 };
 
