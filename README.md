@@ -14,8 +14,8 @@ Modular include:
 
 ```javascript
 var jwt = require("js-jwt");
-jwt.init('SH256','secret-key') //you can init with secrete and without secret-key
-var token = jwt.encode({id:1, name: 'john doe'}, 'secret-key') //here you can paas secret-key if you want to encode with different secretKey
+jwt.init('SH256','secret-key') //you can init with secret and without secret-key
+var token = jwt.encode({id:1, name: 'john doe'}, 'secret-key') //here you can pass secret-key if you want to encode with different secret-key
 ...
 console.log(token);
 
